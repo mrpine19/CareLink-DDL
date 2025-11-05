@@ -1,0 +1,16 @@
+INSERT INTO TB_CAR_USUARIO (id_usuario, nome_usuario, papel_usuario) VALUES (1, 'GUSTAVO', 'TESTE');
+
+INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade) VALUES (1, 'Cardiologia');
+INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade) VALUES (2, 'Enfermagem');
+INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade) VALUES (3, 'Fisiatria');
+INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade) VALUES (4, 'Fisioterapia');
+INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade) VALUES (5, 'Fonoaudiologia');
+INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade) VALUES (6, 'Infectologia');
+INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade) VALUES (7, 'Medicina do Sono');
+INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade) VALUES (8, 'Neurologia');
+INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade) VALUES (9, 'Nutrição');
+INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade) VALUES (10, 'Odontologia');
+INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade) VALUES (11, 'Psicologia');
+INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade) VALUES (12, 'Psiquiatria');
+INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade) VALUES (13, 'Terapia Ocupacional');
+INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade) VALUES (14, 'Urologia');
