@@ -1,5 +1,5 @@
 -- Gerado por Oracle SQL Developer Data Modeler 24.3.1.351.0831
---   em:        2025-10-19 15:47:30 BRT
+--   em:        2025-11-04 20:36:16 BRT
 --   site:      Oracle Database 21c
 --   tipo:      Oracle Database 21c
 
@@ -15,6 +15,9 @@ DROP TABLE TB_CAR_CONSULTA CASCADE CONSTRAINTS
 ;
 
 DROP TABLE TB_CAR_CUIDADOR CASCADE CONSTRAINTS 
+;
+
+DROP TABLE TB_CAR_ESPECIALIDADE CASCADE CONSTRAINTS 
 ;
 
 DROP TABLE TB_CAR_INTERACAO_AUTOMATIZADA CASCADE CONSTRAINTS 
@@ -176,6 +179,7 @@ CREATE TABLE TB_CAR_CONSULTA
      id_consulta          INTEGER  NOT NULL , 
      id_paciente          INTEGER  NOT NULL , 
      id_profissional      INTEGER  NOT NULL , 
+     id_especialidade     INTEGER  NOT NULL , 
      id_upload            INTEGER  NOT NULL , 
      data_agenda          DATE , 
      link_acesso          VARCHAR2 (500) , 
@@ -212,6 +216,17 @@ ALTER TABLE TB_CAR_CUIDADOR
 
 ALTER TABLE TB_CAR_CUIDADOR 
     ADD CONSTRAINT UK_CUIDADOR_TELEFONE UNIQUE ( telefone_cuidador ) ;
+
+CREATE TABLE TB_CAR_ESPECIALIDADE 
+    ( 
+     id_especialidade   INTEGER  NOT NULL , 
+     nome_especialidade VARCHAR2 (50) 
+    ) 
+    LOGGING 
+;
+
+ALTER TABLE TB_CAR_ESPECIALIDADE 
+    ADD CONSTRAINT TB_CAR_ESPECIALIDADE_PK PRIMARY KEY ( id_especialidade ) ;
 
 CREATE TABLE TB_CAR_INTERACAO_AUTOMATIZADA 
     ( 
@@ -298,10 +313,9 @@ CREATE TABLE TB_CAR_PACIENTE_CUIDADOR
 
 CREATE TABLE TB_CAR_PROFISSIONAL_SAUDE 
     ( 
-     id_profissional            INTEGER  NOT NULL , 
-     nome_profissional          VARCHAR2 (100) , 
-     especialidade_profissional VARCHAR2 (100) , 
-     dt_criacao                 TIMESTAMP 
+     id_profissional   INTEGER  NOT NULL , 
+     nome_profissional VARCHAR2 (100) , 
+     dt_criacao        TIMESTAMP 
     ) 
     LOGGING 
 ;
@@ -436,6 +450,18 @@ ALTER TABLE TB_CAR_PACIENTE_CUIDADOR
     REFERENCES TB_CAR_PACIENTE 
     ( 
      id_paciente
+    ) 
+    NOT DEFERRABLE 
+;
+
+ALTER TABLE TB_CAR_CONSULTA 
+    ADD CONSTRAINT TB_CONSULTA_ID_ESPECIALIDAD_FK FOREIGN KEY 
+    ( 
+     id_especialidade
+    ) 
+    REFERENCES TB_CAR_ESPECIALIDADE 
+    ( 
+     id_especialidade
     ) 
     NOT DEFERRABLE 
 ;
@@ -608,6 +634,20 @@ BEGIN
 END;
 /
 
+CREATE SEQUENCE TB_CAR_ESPECIALIDADE_id_especialidade_SEQ 
+START WITH 1 
+    NOCACHE 
+    ORDER ;
+
+CREATE OR REPLACE TRIGGER TB_CAR_ESPECIALIDADE_id_especialidade_TRG 
+BEFORE INSERT ON TB_CAR_ESPECIALIDADE 
+FOR EACH ROW 
+WHEN (NEW.id_especialidade IS NULL) 
+BEGIN 
+    :NEW.id_especialidade := TB_CAR_ESPECIALIDADE_id_especialidade_SEQ.NEXTVAL; 
+END;
+/
+
 CREATE OR REPLACE TRIGGER TB_CAR_INTERACAO_AUTOMATIZADA_id_interacao_TRG 
 BEFORE INSERT ON TB_CAR_INTERACAO_AUTOMATIZADA 
 FOR EACH ROW 
@@ -666,16 +706,16 @@ END;
 
 -- Relatório do Resumo do Oracle SQL Developer Data Modeler: 
 -- 
--- CREATE TABLE                            12
+-- CREATE TABLE                            13
 -- CREATE INDEX                             0
--- ALTER TABLE                             32
+-- ALTER TABLE                             34
 -- CREATE VIEW                              0
 -- ALTER VIEW                               0
 -- CREATE PACKAGE                           0
 -- CREATE PACKAGE BODY                      0
 -- CREATE PROCEDURE                         0
 -- CREATE FUNCTION                          0
--- CREATE TRIGGER                          10
+-- CREATE TRIGGER                          11
 -- ALTER TRIGGER                            0
 -- CREATE COLLECTION TYPE                   0
 -- CREATE STRUCTURED TYPE                   0
@@ -688,7 +728,7 @@ END;
 -- CREATE DISK GROUP                        0
 -- CREATE ROLE                              0
 -- CREATE ROLLBACK SEGMENT                  0
--- CREATE SEQUENCE                         10
+-- CREATE SEQUENCE                         11
 -- CREATE MATERIALIZED VIEW                 0
 -- CREATE MATERIALIZED VIEW LOG             0
 -- CREATE SYNONYM                           0
