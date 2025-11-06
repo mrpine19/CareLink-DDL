@@ -1,16 +1,19 @@
 INSERT INTO TB_CAR_USUARIO (id_usuario, nome_usuario, papel_usuario) VALUES (1, 'GUSTAVO', 'TESTE');
 
-INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade) VALUES (1, 'Cardiologia');
-INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade) VALUES (2, 'Enfermagem');
-INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade) VALUES (3, 'Fisiatria');
-INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade) VALUES (4, 'Fisioterapia');
-INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade) VALUES (5, 'Fonoaudiologia');
-INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade) VALUES (6, 'Infectologia');
-INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade) VALUES (7, 'Medicina do Sono');
-INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade) VALUES (8, 'Neurologia');
-INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade) VALUES (9, 'Nutrição');
-INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade) VALUES (10, 'Odontologia');
-INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade) VALUES (11, 'Psicologia');
-INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade) VALUES (12, 'Psiquiatria');
-INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade) VALUES (13, 'Terapia Ocupacional');
-INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade) VALUES (14, 'Urologia');
+
+INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade, link_consulta_especialidade) VALUES (1, 'Cardiologia', 'https://iconf.incor.usp.br/b/tel-cardiologia');
+INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade, link_consulta_especialidade) VALUES (2, 'Enfermagem', 'https://iconf.incor.usp.br/b/tel-enfermagem');
+INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade, link_consulta_especialidade) VALUES (3, 'Fisiatria', 'https://iconf.incor.usp.br/b/tel-fisiatria');
+INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade, link_consulta_especialidade) VALUES (4, 'Fisioterapia', 'https://iconf.incor.usp.br/b/tel-fisioterapia');
+INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade, link_consulta_especialidade) VALUES (5, 'Fonoaudiologia', 'https://iconf.incor.usp.br/b/tel-fonoaudiologia');
+INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade, link_consulta_especialidade) VALUES (6, 'Infectologia', 'https://iconf.incor.usp.br/b/tel-infectologia');
+INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade, link_consulta_especialidade) VALUES (7, 'Medicina do Sono', 'https://iconf.incor.usp.br/b/tel-medicina-do-sono');
+INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade, link_consulta_especialidade) VALUES (8, 'Neurologia', 'https://iconf.incor.usp.br/b/tel-neurologia');
+INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade, link_consulta_especialidade) VALUES (9, 'Nutrição', 'https://iconf.incor.usp.br/b/tel-nutricao');
+INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade, link_consulta_especialidade) VALUES (10, 'Odontologia', 'https://iconf.incor.usp.br/b/tel-odontologia');
+INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade, link_consulta_especialidade) VALUES (11, 'Psicologia', 'https://iconf.incor.usp.br/b/tel-psicologia');
+INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade, link_consulta_especialidade) VALUES (12, 'Psiquiatria', 'https://iconf.incor.usp.br/b/tel-psiquiatria');
+INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade, link_consulta_especialidade) VALUES (13, 'Terapia Ocupacional', 'https://iconf.incor.usp.br/b/tel-terapia-ocupacional');
+INSERT INTO TB_CAR_ESPECIALIDADE (id_especialidade, nome_especialidade, link_consulta_especialidade) VALUES (14, 'Urologia', 'https://iconf.incor.usp.br/b/tel-urologia');
+
+COMMIT;

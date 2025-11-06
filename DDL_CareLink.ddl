@@ -1,5 +1,5 @@
 -- Gerado por Oracle SQL Developer Data Modeler 24.3.1.351.0831
---   em:        2025-11-04 20:36:16 BRT
+--   em:        2025-11-06 15:40:26 BRT
 --   site:      Oracle Database 21c
 --   tipo:      Oracle Database 21c
 
@@ -56,6 +56,9 @@ DROP SEQUENCE TB_CAR_CONSULTA_id_consulta_SEQ
 DROP SEQUENCE TB_CAR_CUIDADOR_id_cuidador_SEQ 
 ;
 
+DROP SEQUENCE TB_CAR_ESPECIALIDADE_id_especialidade_SEQ 
+;
+
 DROP SEQUENCE TB_CAR_INTERACAO_AUTOMATIZADA_id_interacao_SEQ 
 ;
 
@@ -97,6 +100,12 @@ CREATE SEQUENCE TB_CAR_CONSULTA_id_consulta_SEQ
 ;
 
 CREATE SEQUENCE TB_CAR_CUIDADOR_id_cuidador_SEQ 
+    START WITH 1 
+    NOCACHE 
+    ORDER 
+;
+
+CREATE SEQUENCE TB_CAR_ESPECIALIDADE_id_especialidade_SEQ 
     START WITH 1 
     NOCACHE 
     ORDER 
@@ -176,19 +185,19 @@ ALTER TABLE TB_CAR_ANOTACAO_MANUAL
 
 CREATE TABLE TB_CAR_CONSULTA 
     ( 
-     id_consulta          INTEGER  NOT NULL , 
-     id_paciente          INTEGER  NOT NULL , 
-     id_profissional      INTEGER  NOT NULL , 
-     id_especialidade     INTEGER  NOT NULL , 
-     id_upload            INTEGER  NOT NULL , 
-     data_agenda          DATE , 
-     link_acesso          VARCHAR2 (500) , 
-     codigo_acesso        VARCHAR2 (50) , 
-     obs_agendamento      VARCHAR2 (4000) , 
-     status_consulta      VARCHAR2 (50) , 
-     modalidade_realizada VARCHAR2 (50) , 
-     data_registro_status TIMESTAMP , 
-     dt_criacao           TIMESTAMP 
+     id_consulta                 INTEGER  NOT NULL , 
+     id_paciente                 INTEGER  NOT NULL , 
+     id_profissional             INTEGER  NOT NULL , 
+     id_especialidade            INTEGER  NOT NULL , 
+     id_upload                   INTEGER  NOT NULL , 
+     data_agenda                 DATE , 
+     codigo_acesso               VARCHAR2 (50) , 
+     obs_agendamento             VARCHAR2 (4000) , 
+     status_consulta             VARCHAR2 (50) , 
+     modalidade_realizada        VARCHAR2 (50) , 
+     data_registro_status        TIMESTAMP , 
+     dt_criacao                  TIMESTAMP , 
+     paciente_confirmou_presenca CHAR (1) 
     ) 
     LOGGING 
 ;
@@ -219,8 +228,9 @@ ALTER TABLE TB_CAR_CUIDADOR
 
 CREATE TABLE TB_CAR_ESPECIALIDADE 
     ( 
-     id_especialidade   INTEGER  NOT NULL , 
-     nome_especialidade VARCHAR2 (50) 
+     id_especialidade            INTEGER  NOT NULL , 
+     nome_especialidade          VARCHAR2 (50) , 
+     link_consulta_especialidade VARCHAR2 (255) 
     ) 
     LOGGING 
 ;
@@ -283,17 +293,16 @@ ALTER TABLE TB_CAR_METRIC_ABSENT
 
 CREATE TABLE TB_CAR_PACIENTE 
     ( 
-     id_paciente                   INTEGER  NOT NULL , 
-     nome_paciente                 VARCHAR2 (100) , 
-     celular_paciente              VARCHAR2 (50) , 
-     data_nascimento_paciente      DATE , 
-     score_risco_absenteismo       INTEGER , 
-     semana_tratamento_atual       INTEGER , 
-     data_inicio_tratamento        DATE , 
-     historico_faltas_consecutivas INTEGER , 
-     data_ultima_atualizacao       TIMESTAMP , 
-     bairro_paciente               VARCHAR2 (100) , 
-     dt_criacao                    TIMESTAMP 
+     id_paciente                INTEGER  NOT NULL , 
+     nome_paciente              VARCHAR2 (100) , 
+     celular_paciente           VARCHAR2 (50) , 
+     data_nascimento_paciente   DATE , 
+     afinidade_digital          INTEGER , 
+     score_risco_absenteismo    INTEGER , 
+     data_primeira_consulta     DATE , 
+     numero_faltas_consecutivas INTEGER DEFAULT 0 , 
+     bairro_paciente            VARCHAR2 (100) , 
+     dt_criacao                 TIMESTAMP 
     ) 
     LOGGING 
 ;
@@ -633,11 +642,6 @@ BEGIN
     :NEW.id_cuidador := TB_CAR_CUIDADOR_id_cuidador_SEQ.NEXTVAL; 
 END;
 /
-
-CREATE SEQUENCE TB_CAR_ESPECIALIDADE_id_especialidade_SEQ 
-START WITH 1 
-    NOCACHE 
-    ORDER ;
 
 CREATE OR REPLACE TRIGGER TB_CAR_ESPECIALIDADE_id_especialidade_TRG 
 BEFORE INSERT ON TB_CAR_ESPECIALIDADE 
