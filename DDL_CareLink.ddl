@@ -1,5 +1,5 @@
 -- Gerado por Oracle SQL Developer Data Modeler 24.3.1.351.0831
---   em:        2025-11-06 15:40:26 BRT
+--   em:        2025-11-07 09:13:14 BRT
 --   site:      Oracle Database 21c
 --   tipo:      Oracle Database 21c
 
@@ -194,10 +194,10 @@ CREATE TABLE TB_CAR_CONSULTA
      codigo_acesso               VARCHAR2 (50) , 
      obs_agendamento             VARCHAR2 (4000) , 
      status_consulta             VARCHAR2 (50) , 
-     modalidade_realizada        VARCHAR2 (50) , 
      data_registro_status        TIMESTAMP , 
-     dt_criacao                  TIMESTAMP , 
-     paciente_confirmou_presenca CHAR (1) 
+     paciente_confirmou_presenca VARCHAR2 (1) , 
+     paciente_precisa_remarcar   VARCHAR2 (1) DEFAULT 'N' , 
+     dt_criacao                  TIMESTAMP 
     ) 
     LOGGING 
 ;
