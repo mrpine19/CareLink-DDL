@@ -1,5 +1,5 @@
 -- Gerado por Oracle SQL Developer Data Modeler 24.3.1.351.0831
---   em:        2025-11-07 09:13:14 BRT
+--   em:        2025-11-09 00:03:14 BRT
 --   site:      Oracle Database 21c
 --   tipo:      Oracle Database 21c
 
@@ -21,12 +21,6 @@ DROP TABLE TB_CAR_ESPECIALIDADE CASCADE CONSTRAINTS
 ;
 
 DROP TABLE TB_CAR_INTERACAO_AUTOMATIZADA CASCADE CONSTRAINTS 
-;
-
-DROP TABLE TB_CAR_LOG_AUDITORIA CASCADE CONSTRAINTS 
-;
-
-DROP TABLE TB_CAR_METRIC_ABSENT CASCADE CONSTRAINTS 
 ;
 
 DROP TABLE TB_CAR_PACIENTE CASCADE CONSTRAINTS 
@@ -255,42 +249,6 @@ CREATE TABLE TB_CAR_INTERACAO_AUTOMATIZADA
 ALTER TABLE TB_CAR_INTERACAO_AUTOMATIZADA 
     ADD CONSTRAINT ID_INTERACAO_PK PRIMARY KEY ( id_interacao ) ;
 
-CREATE TABLE TB_CAR_LOG_AUDITORIA 
-    ( 
-     id_log           INTEGER  NOT NULL , 
-     data_hora_evento TIMESTAMP  NOT NULL , 
-     tipo_evento      VARCHAR2 (100) , 
-     detalhes_evento  VARCHAR2 (255) , 
-     dt_criacao       TIMESTAMP , 
-     id_usuario       INTEGER  NOT NULL , 
-     id_consulta      INTEGER , 
-     id_paciente      INTEGER , 
-     id_interacao     INTEGER , 
-     id_alerta        INTEGER 
-    ) 
-    LOGGING 
-;
-
-ALTER TABLE TB_CAR_LOG_AUDITORIA 
-    ADD CONSTRAINT TB_LOG_AUDITORIA_PK PRIMARY KEY ( id_log ) ;
-
-CREATE TABLE TB_CAR_METRIC_ABSENT 
-    ( 
-     id_metrica                   INTEGER  NOT NULL , 
-     mes_ano                      VARCHAR2 (11) , 
-     percentual_absenteismo_geral NUMBER (5,2) , 
-     total_consultas_agendadas    INTEGER , 
-     total_faltas                 INTEGER , 
-     meta_absenteismo             NUMBER (5,2) , 
-     fonte_dado                   VARCHAR2 (50) , 
-     dt_criacao                   TIMESTAMP 
-    ) 
-    LOGGING 
-;
-
-ALTER TABLE TB_CAR_METRIC_ABSENT 
-    ADD CONSTRAINT ID_METRICA_PK PRIMARY KEY ( id_metrica ) ;
-
 CREATE TABLE TB_CAR_PACIENTE 
     ( 
      id_paciente                INTEGER  NOT NULL , 
@@ -308,15 +266,17 @@ CREATE TABLE TB_CAR_PACIENTE
 ;
 
 ALTER TABLE TB_CAR_PACIENTE 
-    ADD CONSTRAINT ID_PACIENTE_PK PRIMARY KEY ( id_paciente ) ;
-
-ALTER TABLE TB_CAR_PACIENTE 
     ADD CONSTRAINT CK_PACIENTE_AFINIDADE 
-    CHECK (afinidade_digital BETWEEN 0 AND 100);
+    CHECK (afinidade_digital BETWEEN 0 AND 100) 
+;
 
 ALTER TABLE TB_CAR_PACIENTE 
     ADD CONSTRAINT CK_PACIENTE_SCORE_RISCO 
-    CHECK (score_risco_absenteismo BETWEEN 0 AND 1000);
+    CHECK (score_risco_absenteismo BETWEEN 0 AND 1000) 
+;
+
+ALTER TABLE TB_CAR_PACIENTE 
+    ADD CONSTRAINT ID_PACIENTE_PK PRIMARY KEY ( id_paciente ) ;
 
 CREATE TABLE TB_CAR_PACIENTE_CUIDADOR 
     ( 
@@ -543,66 +503,6 @@ ALTER TABLE TB_CAR_INTERACAO_AUTOMATIZADA
     NOT DEFERRABLE 
 ;
 
-ALTER TABLE TB_CAR_LOG_AUDITORIA 
-    ADD CONSTRAINT TB_LOG_AUDIT_ID_ALERTA_FK FOREIGN KEY 
-    ( 
-     id_alerta
-    ) 
-    REFERENCES TB_CAR_ALERTA_SISTEMA 
-    ( 
-     id_alerta
-    ) 
-    NOT DEFERRABLE 
-;
-
-ALTER TABLE TB_CAR_LOG_AUDITORIA 
-    ADD CONSTRAINT TB_LOG_AUDIT_ID_CONSULTA_FK FOREIGN KEY 
-    ( 
-     id_consulta
-    ) 
-    REFERENCES TB_CAR_CONSULTA 
-    ( 
-     id_consulta
-    ) 
-    NOT DEFERRABLE 
-;
-
-ALTER TABLE TB_CAR_LOG_AUDITORIA 
-    ADD CONSTRAINT TB_LOG_AUDIT_ID_INTERACAO_FK FOREIGN KEY 
-    ( 
-     id_interacao
-    ) 
-    REFERENCES TB_CAR_INTERACAO_AUTOMATIZADA 
-    ( 
-     id_interacao
-    ) 
-    NOT DEFERRABLE 
-;
-
-ALTER TABLE TB_CAR_LOG_AUDITORIA 
-    ADD CONSTRAINT TB_LOG_AUDIT_ID_PACIENTE_FK FOREIGN KEY 
-    ( 
-     id_paciente
-    ) 
-    REFERENCES TB_CAR_PACIENTE 
-    ( 
-     id_paciente
-    ) 
-    NOT DEFERRABLE 
-;
-
-ALTER TABLE TB_CAR_LOG_AUDITORIA 
-    ADD CONSTRAINT TB_LOG_AUDIT_ID_USUARIO_FK FOREIGN KEY 
-    ( 
-     id_usuario
-    ) 
-    REFERENCES TB_CAR_USUARIO 
-    ( 
-     id_usuario
-    ) 
-    NOT DEFERRABLE 
-;
-
 ALTER TABLE TB_CAR_UPLOAD_LOG 
     ADD CONSTRAINT TB_UPLOAD_LOG_TB_USUARIO_FK FOREIGN KEY 
     ( 
@@ -669,15 +569,6 @@ BEGIN
 END;
 /
 
-CREATE OR REPLACE TRIGGER TB_CAR_LOG_AUDITORIA_id_log_TRG 
-BEFORE INSERT ON TB_CAR_LOG_AUDITORIA 
-FOR EACH ROW 
-WHEN (NEW.id_log IS NULL) 
-BEGIN 
-    :NEW.id_log := TB_CAR_LOG_AUDITORIA_id_log_SEQ.NEXTVAL; 
-END;
-/
-
 CREATE OR REPLACE TRIGGER TB_CAR_PACIENTE_id_paciente_TRG 
 BEFORE INSERT ON TB_CAR_PACIENTE 
 FOR EACH ROW 
@@ -718,16 +609,16 @@ END;
 
 -- Relatório do Resumo do Oracle SQL Developer Data Modeler: 
 -- 
--- CREATE TABLE                            13
+-- CREATE TABLE                            11
 -- CREATE INDEX                             0
--- ALTER TABLE                             34
+-- ALTER TABLE                             29
 -- CREATE VIEW                              0
 -- ALTER VIEW                               0
 -- CREATE PACKAGE                           0
 -- CREATE PACKAGE BODY                      0
 -- CREATE PROCEDURE                         0
 -- CREATE FUNCTION                          0
--- CREATE TRIGGER                          11
+-- CREATE TRIGGER                          10
 -- ALTER TRIGGER                            0
 -- CREATE COLLECTION TYPE                   0
 -- CREATE STRUCTURED TYPE                   0
